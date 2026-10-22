@@ -1,0 +1,10 @@
+[
+  {
+    "enrollment": "25DCS106",
+    "name": "Demo Student",
+    "email": "demo.student@example.com",
+    "branch": "Computer Science",
+    "semester": 3,
+    "role": "student"
+  }
+]

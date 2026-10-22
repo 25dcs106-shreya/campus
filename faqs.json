@@ -1,0 +1,14 @@
+[
+  {
+    "question": "How do I view my marks?",
+    "answer": "Log in and open the Marks section."
+  },
+  {
+    "question": "How do I register for an event?",
+    "answer": "Open Events and select the event registration option."
+  },
+  {
+    "question": "Who can access the admin dashboard?",
+    "answer": "Only accounts assigned the admin role can access administration features."
+  }
+]

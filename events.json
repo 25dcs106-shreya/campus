@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Tech Symposium",
+    "category": "Technology",
+    "date": "2026-11-12",
+    "location": "Main Auditorium",
+    "description": "Student talks, demos and technical workshops."
+  },
+  {
+    "id": 2,
+    "title": "Design Sprint",
+    "category": "Workshop",
+    "date": "2026-11-18",
+    "location": "Innovation Lab",
+    "description": "A collaborative UI/UX design workshop."
+  },
+  {
+    "id": 3,
+    "title": "Sports Meet",
+    "category": "Sports",
+    "date": "2026-11-25",
+    "location": "University Ground",
+    "description": "Inter-department games and activities."
+  }
+]
