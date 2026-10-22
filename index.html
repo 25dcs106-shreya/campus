@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CampusHub — Student Portal</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+    <nav class="wrap">
+        <div class="logo">
+            <span class="logo-mark">CH</span>
+            <span>CampusHub</span>
+        </div>
+
+        <div class="navlinks" id="navlinks">
+            <a data-page="home">Home</a>
+            <a data-page="dashboard" data-protected="1">Dashboard</a>
+            <a data-page="academics" data-protected="1">Academics</a>
+            <a data-page="services" data-protected="1">Services</a>
+            <a data-page="events" data-protected="1">Events</a>
+            <a data-page="courses" data-protected="1">Courses</a>
+            <a data-page="marks" data-protected="1">Marks</a>
+            <a data-page="notifications" data-protected="1">Notifications</a>
+        </div>
+
+        <div class="navcta" id="navcta">
+            <a class="btn btn-ghost" id="profileBtn" data-page="profile" data-protected="1" style="display:none">Profile</a>
+            <a class="btn btn-gold" id="authBtn">Login</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+<!-- ================= HOME (PUBLIC) ================= -->
+<div class="page active" id="page-home">
+
+    <div class="hero wrap">
+        <div class="hero-grid">
+            <div>
+                <p class="eyebrow">Student portal</p>
+                <h1>Everything about your semester, in <em>one place</em></h1>
+                <p>CampusHub keeps your courses, internal marks, attendance and campus events together. Log in with your enrolment number to see your own records.</p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-gold" id="heroLoginBtn">Log in</a>
+                    <a class="btn btn-ghost" id="heroSignupBtn">Create account</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div><b>1,240</b><span>Students enrolled</span></div>
+                    <div><b>38</b><span>Active courses</span></div>
+                    <div><b>12</b><span>Events this month</span></div>
+                </div>
+            </div>
+
+            <!-- LOGIN CARD -->
+            <div class="login-card" id="loginCard">
+                <p class="tag">Secure area</p>
+                <h3>Student login</h3>
+
+                <div class="form-error" id="loginError"></div>
+
+                <div class="field">
+                    <label for="loginId">Enrolment number or email</label>
+                    <input type="text" id="loginId" placeholder="23CE001" autocomplete="username">
+                    <p class="field-hint" id="loginIdHint">We couldn't find this enrolment number.</p>
+                </div>
+
+                <div class="field">
+                    <label for="loginPass">Password</label>
+                    <input type="password" id="loginPass" placeholder="Your password" autocomplete="current-password">
+                    <p class="field-hint" id="loginPassHint">Wrong password. Try again.</p>
+                </div>
+
+                <div class="login-row">
+                    <label><input type="checkbox" id="rememberMe"> Remember me</label>
+                    <a>Forgot password?</a>
+                </div>
+
+                <a class="btn btn-gold" id="doLogin" style="width:100%;text-align:center">Log in</a>
+
+                <p class="login-foot">New here? <span class="auth-switch" id="toSignup">Create an account</span></p>
+
+                <p class="demo-note">Demo accounts — <b>23CE001</b> / <b>shreya123</b> and <b>23CE002</b> / <b>student123</b></p>
+            </div>
+
+            <!-- SIGNUP CARD : student registration form -->
+            <div class="login-card" id="signupCard" style="display:none">
+                <p class="tag">New student</p>
+                <h3>Student registration</h3>
+
+                <div class="form-error" id="signupError"></div>
+                <div class="form-ok" id="signupOk">Account created. You can log in now.</div>
+
+                <div class="field">
+                    <label for="suName">Full name</label>
+                    <input type="text" id="suName" placeholder="Shreya Patel" maxlength="50" autocomplete="name" required>
+                    <p class="field-hint" id="suNameHint">Use 2&ndash;50 letters. Spaces, . ' and - are allowed.</p>
+                </div>
+
+                <div class="field">
+                    <label for="suEnroll">Enrolment number</label>
+                    <input type="text" id="suEnroll" placeholder="23CE003" maxlength="10" autocomplete="off" required>
+                    <p class="field-hint" id="suEnrollHint">Format: 2 digits, 2&ndash;4 letters, 3 digits (e.g. 23CE003).</p>
+                </div>
+
+                <div class="field">
+                    <label for="suEmail">Email</label>
+                    <input type="email" id="suEmail" placeholder="you@charusat.edu.in" autocomplete="email" required>
+                    <p class="field-hint" id="suEmailHint">Enter a valid email like name@example.com.</p>
+                </div>
+
+                <div class="field">
+                    <label for="suMobile">Mobile number</label>
+                    <input type="tel" id="suMobile" placeholder="98250 12345" maxlength="16" inputmode="numeric" autocomplete="tel" required>
+                    <p class="field-hint" id="suMobileHint">Enter a 10-digit Indian mobile number starting with 6&ndash;9.</p>
+                </div>
+
+                <div class="field">
+                    <label for="suPass">Password</label>
+                    <input type="password" id="suPass" placeholder="Min 8 chars, Aa, 1, @" autocomplete="new-password" required>
+                    <p class="field-hint" id="suPassHint">Use 8+ characters with an uppercase letter, a lowercase letter, a number and a symbol. No spaces.</p>
+                </div>
+
+                <div class="field">
+                    <label for="suPass2">Confirm password</label>
+                    <input type="password" id="suPass2" placeholder="Type it again" autocomplete="new-password" required>
+                    <p class="field-hint" id="suPass2Hint">The two passwords don't match.</p>
+                </div>
+
+                <div class="field">
+                    <label for="suCourse">Course</label>
+                    <select id="suCourse" required>
+                        <option value="">Select your course</option>
+                        <option value="CE">Computer Engineering</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="CSE">Computer Science &amp; Engineering</option>
+                        <option value="AIML">AI &amp; Machine Learning</option>
+                        <option value="EC">Electronics &amp; Communication</option>
+                        <option value="ME">Mechanical Engineering</option>
+                    </select>
+                    <p class="field-hint" id="suCourseHint">Please choose a course.</p>
+                </div>
+
+                <div class="field">
+                    <label for="suYear">Year</label>
+                    <select id="suYear" required>
+                        <option value="">Select your year</option>
+                        <option value="1">1st year</option>
+                        <option value="2">2nd year</option>
+                        <option value="3">3rd year</option>
+                        <option value="4">4th year</option>
+                    </select>
+                    <p class="field-hint" id="suYearHint">Please choose your year.</p>
+                </div>
+
+                <div class="choice-group" id="suGenderGroup">
+                    <span class="choice-label">Gender</span>
+                    <div class="choice-row">
+                        <label><input type="radio" name="suGender" value="male"> Male</label>
+                        <label><input type="radio" name="suGender" value="female"> Female</label>
+                        <label><input type="radio" name="suGender" value="other"> Other</label>
+                    </div>
+                    <p class="field-hint" id="suGenderHint">Please select a gender.</p>
+                </div>
+
+                <div class="choice-group" id="suTermsGroup">
+                    <label class="terms-row">
+                        <input type="checkbox" id="suTerms" required>
+                        <span>I accept the terms &amp; conditions and the privacy policy.</span>
+                    </label>
+                    <p class="field-hint" id="suTermsHint">You must accept the terms to register.</p>
+                </div>
+
+                <a class="btn btn-gold" id="doSignup" style="width:100%;text-align:center">Register</a>
+
+                <p class="login-foot">Already registered? <span class="auth-switch" id="toLogin">Log in</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAMPUS AT A GLANCE -->
+    <section class="wrap">
+        <div class="sec-head">
+            <h2>About the campus</h2>
+            <p>A quick look at CampusHub University before you log in.</p>
+        </div>
+
+        <div class="campus-grid">
+            <div class="campus-fact">
+                <b>2003</b>
+                <span>Established</span>
+            </div>
+            <div class="campus-fact">
+                <b>12,000+</b>
+                <span>Students on campus</span>
+            </div>
+            <div class="campus-fact">
+                <b>9</b>
+                <span>Departments</span>
+            </div>
+            <div class="campus-fact">
+                <b>85 acres</b>
+                <span>Campus area</span>
+            </div>
+            <div class="campus-fact">
+                <b>NAAC A+</b>
+                <span>Accreditation</span>
+            </div>
+            <div class="campus-fact">
+                <b>92%</b>
+                <span>Placement rate</span>
+            </div>
+        </div>
+
+        <div class="campus-about">
+            <div class="campus-text">
+                <h3>A campus built for engineers</h3>
+                <p>CampusHub University runs undergraduate and postgraduate programmes across Computer Engineering, Information Technology, AI &amp; ML, Electronics, Mechanical and Civil Engineering. The campus has dedicated labs for networking, robotics and software development, a 24-hour library, hostels for over 4,000 students, and an on-campus health centre and sports complex.</p>
+                <p>Recruiters that visit every year include TCS, Infosys, Wipro, Cognizant and a growing list of product-based startups through the placement cell.</p>
+            </div>
+            <div class="campus-facilities">
+                <div class="facility-row">🏛️ <span>Central library — open 24 hours during exams</span></div>
+                <div class="facility-row">💻 <span>Networking &amp; AI/ML labs across every department</span></div>
+                <div class="facility-row">🏠 <span>On-campus hostels for boys and girls</span></div>
+                <div class="facility-row">🏥 <span>Health centre with a resident doctor</span></div>
+                <div class="facility-row">🏟️ <span>Sports complex — cricket, athletics, indoor courts</span></div>
+                <div class="facility-row">🚌 <span>Bus routes covering the whole city</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="wrap">
+        <div class="sec-head">
+            <h2>What you get inside</h2>
+            <p>The portal opens only after you log in, so every record you see belongs to your enrolment number.</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="panel">
+                <h3>Your academic record</h3>
+                <p>Internal and external marks for every subject, credits earned, and your running SPI — updated as results are declared.</p>
+            </div>
+            <div class="panel">
+                <h3>Your campus life</h3>
+                <p>Workshops, hackathons and cultural events, with one-tap registration and a list of everything you've signed up for.</p>
+            </div>
+        </div>
+
+        <div class="why-row">
+            <div class="why-card">
+                <p class="num">Private</p>
+                <h4>One login, one student</h4>
+                <p>Your marks, courses and registrations are tied to your enrolment number.</p>
+            </div>
+            <div class="why-card">
+                <p class="num">Saved</p>
+                <h4>Nothing is lost</h4>
+                <p>Bookmarks, event registrations and profile edits stay put when you come back.</p>
+            </div>
+            <div class="why-card">
+                <p class="num">Quick</p>
+                <h4>Built for the phone</h4>
+                <p>Check a result or register for an event between lectures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="wrap">
+        <div class="sec-head">
+            <h2>Common questions</h2>
+            <p>Still stuck? Write to the academic office.</p>
+        </div>
+        <div class="search-box">
+            <input type="text" id="faqSearch" placeholder="Search questions… e.g. password">
+        </div>
+        <div class="faq-list" id="faqList"></div>
+        <p class="empty-state" id="faqEmpty" style="display:none">No matching questions. Try a different search.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="wrap">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Academic office</h3>
+                <p>Open Monday to Friday, 9:30 am to 5:00 pm.</p>
+                <div class="row">office@campushub.edu</div>
+                <div class="row">+91 98250 00000</div>
+                <div class="row">Block A, Ground floor</div>
+            </div>
+            <div class="contact-form">
+                <div class="field">
+                    <label for="cName">Name</label>
+                    <input type="text" id="cName">
+                </div>
+                <div class="field">
+                    <label for="cMsg">Message</label>
+                    <textarea id="cMsg"></textarea>
+                </div>
+                <a class="btn btn-gold" id="sendMsg">Send message</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div class="page" id="page-dashboard">
+    <div class="welcome wrap">
+        <div class="welcome-banner">
+            <div class="welcome-left">
+                <div class="welcome-avatar" id="dashAvatar">S</div>
+                <div>
+                    <h3 id="welcomeName">Welcome back</h3>
+                    <p id="welcomeSub">Here's where your semester stands.</p>
+                </div>
+            </div>
+            <div class="welcome-actions">
+                <a class="btn btn-ghost" data-page="profile">View profile</a>
+                <a class="btn btn-logout" id="dashLogoutBtn">Log out</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="wrap">
+        <div class="sec-head">
+            <h2>This semester</h2>
+            <p>A quick read on attendance, credits and what's coming up.</p>
+        </div>
+
+        <div class="dash-grid" id="dashGrid"></div>
+
+        <div class="overview-grid">
+            <div class="overview-panel">
+                <div class="overview-head">
+                    <h3>Subject snapshot</h3>
+                    <a data-page="marks" class="overview-link">View all marks →</a>
+                </div>
+                <div id="subjectSnapshot"></div>
+            </div>
+
+            <div class="overview-panel">
+                <div class="overview-head">
+                    <h3>Upcoming events</h3>
+                    <a data-page="events" class="overview-link">View all events →</a>
+                </div>
+                <div id="upcomingEvents"></div>
+            </div>
+        </div>
+
+        <div class="quick-grid">
+            <div class="quick-card" data-page="academics">
+                <div class="quick-icon">🎓</div>
+                <h4>Academics</h4>
+                <span>Marks, attendance and timetable</span>
+            </div>
+            <div class="quick-card" data-page="courses">
+                <div class="quick-icon">📘</div>
+                <h4>Courses</h4>
+                <span>Track progress and bookmarks</span>
+            </div>
+            <div class="quick-card" data-page="marks">
+                <div class="quick-icon">📊</div>
+                <h4>Marks</h4>
+                <span>Internal and external results</span>
+            </div>
+            <div class="quick-card" data-page="events">
+                <div class="quick-icon">🎪</div>
+                <h4>Events</h4>
+                <span>Register for what's on campus</span>
+            </div>
+            <div class="quick-card" data-page="services">
+                <div class="quick-icon">🛎️</div>
+                <h4>Services</h4>
+                <span>Library, printing and more</span>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ================= EVENTS ================= -->
+<div class="page" id="page-events">
+    <div class="page-hero wrap">
+        <h1>Campus events</h1>
+        <p>Register once and the seat is held for you.</p>
+        <div class="search-box">
+            <input type="text" id="eventSearch" placeholder="Search events… e.g. hackathon">
+        </div>
+    </div>
+
+    <section class="wrap">
+        <div class="events-grid" id="eventsGrid"></div>
+        <p class="empty-state" id="eventsEmpty" style="display:none">No events match your search.</p>
+    </section>
+
+    <section class="wrap">
+        <div class="sec-head">
+            <h2>Your registrations</h2>
+            <p>Everything you've signed up for this semester.</p>
+        </div>
+        <div class="registration-list" id="regList"></div>
+    </section>
+</div>
+
+<!-- ================= COURSES ================= -->
+<div class="page" id="page-courses">
+    <div class="page-hero wrap">
+        <h1>Your courses</h1>
+        <p>Semester 5 enrolment. Tap the star to bookmark a course.</p>
+        <div class="filter-row" id="filterRow">
+            <div class="chip active" data-filter="all">All</div>
+            <div class="chip" data-filter="Core">Core</div>
+            <div class="chip" data-filter="Elective">Elective</div>
+            <div class="chip" data-filter="Lab">Lab</div>
+        </div>
+    </div>
+
+    <section class="wrap">
+        <div class="course-grid" id="courseGrid"></div>
+    </section>
+</div>
+
+<!-- ================= MARKS ================= -->
+<div class="page" id="page-marks">
+    <div class="page-hero wrap">
+        <h1>Marks</h1>
+        <p id="marksSub">Semester 5 internal and external results.</p>
+    </div>
+
+    <section class="wrap">
+        <div class="marks-grid" id="marksSummary"></div>
+        <div class="marks-table-wrap">
+            <table class="marks-table">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Subject</th>
+                        <th>Credits</th>
+                        <th>Internal / 40</th>
+                        <th>External / 60</th>
+                        <th>Total</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody id="marksBody"></tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<!-- ================= ACADEMIC SERVICES ================= -->
+<div class="page" id="page-academics">
+    <div class="page-hero wrap">
+        <h1>Academic services</h1>
+        <p>Every subject in one place — marks, attendance and your lecture timetable.</p>
+    </div>
+
+    <section class="wrap">
+        <div class="academic-list" id="academicList"></div>
+    </section>
+</div>
+
+<!-- ================= CAMPUS SERVICES ================= -->
+<div class="page" id="page-services">
+    <div class="page-hero wrap">
+        <h1>Campus services</h1>
+        <p>Library, printing and everything else on campus — with opening hours for each.</p>
+    </div>
+
+    <section class="wrap">
+        <div class="services-grid" id="servicesGrid"></div>
+    </section>
+</div>
+
+<!-- ================= PROFILE ================= -->
+<div class="page" id="page-profile">
+    <div class="profile-hero wrap">
+        <div class="profile-card">
+            <div class="avatar" id="pfAvatar">S</div>
+            <div>
+                <h3 id="pfName">Student</h3>
+                <p class="role" id="pfRole">B.Tech student</p>
+                <div class="profile-tags" id="pfTags"></div>
+            </div>
+            <a class="btn btn-ghost" id="logoutBtn">Log out</a>
+        </div>
+    </div>
+
+    <section class="wrap">
+        <div class="profile-body">
+            <div>
+                <div class="stat-strip" id="pfStats"></div>
+                <div class="info-panel">
+                    <h3>Your details</h3>
+                    <div class="info-list">
+                        <div class="row"><span>Enrolment number</span><span id="pfEnroll"></span></div>
+                        <div class="row"><span>Full name</span><input class="edit-input" id="edName"></div>
+                        <div class="row"><span>Email</span><input class="edit-input" id="edEmail"></div>
+                        <div class="row"><span>Phone</span><input class="edit-input" id="edPhone"></div>
+                        <div class="row"><span>Branch &amp; semester</span><input class="edit-input" id="edBranch"></div>
+                        <div class="row"><span>Attendance %</span><input class="edit-input" id="edAttendance" type="number" min="0" max="100" step="1"></div>
+                        <div class="row">
+                            <span>SPI (0–8)</span>
+                            <input class="edit-input" id="edSpi" type="number" min="0" max="8" step="0.01">
+                        </div>
+                    </div>
+                    <p class="field-hint" id="edAttendanceHint">Attendance must be between 0 and 100.</p>
+                    <p class="field-hint" id="edSpiHint">SPI must be between 0 and 8.</p>
+                    <p class="spi-reset-link" id="resetSpi">Reset SPI to the calculated value</p>
+                    <a class="btn btn-gold" id="saveProfile" style="margin-top:18px">Save changes</a>
+                    <p class="save-msg" id="saveMsg">Changes saved.</p>
+                </div>
+            </div>
+
+            <div>
+                <div class="side-panel">
+                    <h3>Enrolled courses</h3>
+                    <div id="pfCourses"></div>
+                </div>
+                <div class="side-panel">
+                    <h3>Registered events</h3>
+                    <div id="pfEvents"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ================= NOTIFICATIONS ================= -->
+<div class="page" id="page-notifications">
+    <div class="page-hero wrap">
+        <div class="notif-head-row">
+            <div>
+                <h1>Notifications <span class="unread-badge" id="unreadBadge">0 new</span></h1>
+                <p>Tap an item to mark it read.</p>
+            </div>
+            <a class="btn btn-ghost" id="markAllRead">Mark all read</a>
+        </div>
+    </div>
+
+    <section class="wrap">
+        <div class="notif-list" id="notifList"></div>
+    </section>
+</div>
+
+</main>
+
+<footer>
+    <div class="wrap footer-grid">
+        <div class="footer-col footer-brand">
+            <div class="logo">
+                <span class="logo-mark">CH</span>
+                <span>CampusHub</span>
+            </div>
+            <p>CampusHub University — Block A, Sector 7, Ahmedabad, Gujarat, India. A NAAC A+ accredited institution est. 2003.</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Quick links</h4>
+            <a data-page="home">Home</a>
+            <a data-page="dashboard" data-protected="1">Dashboard</a>
+            <a data-page="courses" data-protected="1">Courses</a>
+            <a data-page="events" data-protected="1">Events</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <span>office@campushub.edu</span>
+            <span>+91 98250 00000</span>
+            <span>Mon–Fri, 9:30 am – 5:00 pm</span>
+        </div>
+
+        <div class="footer-col">
+            <h4>Follow</h4>
+            <div class="footer-social">
+                <a href="#" aria-label="Instagram">📷</a>
+                <a href="#" aria-label="LinkedIn">💼</a>
+                <a href="#" aria-label="YouTube">▶️</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom wrap">
+        <span>© 2026 CampusHub University. All rights reserved.</span>
+        <span>Student portal demo</span>
+    </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/script.js"></script>
+
+</body>
+</html>

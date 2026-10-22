@@ -1,0 +1,18 @@
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+
+# Runtime uploads: keep folder but do not commit user-uploaded files
+/uploads/events/*
+!/uploads/events/.gitkeep
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and backups
+*.log
+*.sql.bak
